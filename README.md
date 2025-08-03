@@ -45,13 +45,21 @@ It allows the user to play against the computer for a custom number of rounds (1
 
 ---
 
-## 📂 Project Structure
-/Stone-Paper-Scissors/
-  |-- .git
-  |-- .gitignore
-  |-- README.md
-  |-- main.cpp
-  |-- ...
+## 🗂 Project Structure
+
+```bash
+Stone-Paper-Scissors/
+├── images/
+│   ├── Screenshot-1.png
+│   ├── Screenshot-2.png
+│   ├── Screenshot-3.png
+│   └── Screenshot-4.png
+├── .gitignore
+├── README.md
+├── RockPaperScissorsOriginal.cpp
+├── RockPaperScissorsOriginal.sln
+├── RockPaperScissorsOriginal.vcxproj
+└── RockPaperScissorsOriginal.vcxproj.filters
 
 
 ---
