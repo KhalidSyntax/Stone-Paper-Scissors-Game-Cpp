@@ -46,11 +46,12 @@ It allows the user to play against the computer for a custom number of rounds (1
 ---
 
 ## 📂 Project Structure
-Stone-Paper-Scissors/
-Stone-Paper-Scissors/
-│
-├── main.cpp        # Main source code
-├── README.md       # Project description
+/Stone-Paper-Scissors/
+  |-- .git
+  |-- .gitignore
+  |-- README.md
+  |-- main.cpp
+  |-- ...
 
 
 ---
