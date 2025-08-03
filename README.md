@@ -41,7 +41,7 @@ It allows the user to play against the computer for a custom number of rounds (1
 ---
 
 ## 📸 Screenshot (Optional)
-> You can paste a screenshot of the game output here if you want.
+<div align="center"> <img src="./images/Screenshot-1.png" width="45%" alt="Round start screen"> <img src="./images/Screenshot-2.png" width="45%" alt="Mid-game screenshot"> <img src="./images/Screenshot-3.png" width="45%" alt="Game progress"> <img src="./images/Screenshot-4.png" width="45%" alt="Final results"> </div>
 
 ---
 
