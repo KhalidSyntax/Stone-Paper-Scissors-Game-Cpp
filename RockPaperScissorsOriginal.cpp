@@ -1,5 +1,10 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
+#include <fstream>
+#include <chrono>
+#include <ctime>
+#include <iomanip>
 
 using namespace std;
 
@@ -21,8 +26,11 @@ struct stGameResults
 	short Player1WinTimes = 0;
 	short ComputerWinTimes = 0;
 	short DrawTimes = 0;
+	int PlayerPoints = 0; // new
+	int ComputerPoints = 0; // new
 	enWinner GameWinner;
 	string WinnerName = "";
+	vector<stRoundInfo>RoundHistory; // new, for history
 };
 
 int RandomNumber(int From, int To)
@@ -122,7 +130,7 @@ enWinner WhoWonTheGame(short Player1WinTimes, short ComputerWinTimes)
 		return enWinner::Draw;
 }
 
-stGameResults FillGameResults(int GameRounds, short Player1WinTimes, short ComputerWinTimes, short DrawTimes)
+stGameResults FillGameResults(int GameRounds, short Player1WinTimes, short ComputerWinTimes, short DrawTimes, const vector<stRoundInfo>& RoundHistory)
 {
 	stGameResults GameResults;
 
@@ -130,8 +138,14 @@ stGameResults FillGameResults(int GameRounds, short Player1WinTimes, short Compu
 	GameResults.Player1WinTimes = Player1WinTimes;
 	GameResults.ComputerWinTimes = ComputerWinTimes;
 	GameResults.DrawTimes = DrawTimes;
+
+	// scoring: win = 3, draw = 1
+	GameResults.PlayerPoints = Player1WinTimes * 3 + DrawTimes * 1;
+	GameResults.ComputerPoints = ComputerWinTimes * 3 + DrawTimes * 1;
+
 	GameResults.GameWinner = WhoWonTheGame(Player1WinTimes, ComputerWinTimes);
 	GameResults.WinnerName = WinnerName(GameResults.GameWinner);
+	GameResults.RoundHistory = RoundHistory;
 
 	return GameResults;
 }
@@ -159,6 +173,7 @@ stGameResults PlayGame(short HowManyRounds)
 {
 	stRoundInfo RoundInfo;
 
+	vector<stRoundInfo>RoundHistory; // collect Rounds
 	short Player1WinTimes = 0, ComputerWinTimes = 0, DrawTimes = 0;
 
 	for (short GameRound = 1; GameRound <= HowManyRounds; GameRound++)
@@ -178,9 +193,11 @@ stGameResults PlayGame(short HowManyRounds)
 			DrawTimes++;
 
 		PrintRoundResults(RoundInfo);
+
+		RoundHistory.push_back(RoundInfo);
 	}
 
-	return FillGameResults(HowManyRounds, Player1WinTimes, ComputerWinTimes, DrawTimes);
+	return FillGameResults(HowManyRounds, Player1WinTimes, ComputerWinTimes, DrawTimes, RoundHistory);
 }
 
 string Tabs(short NumberOfTabs)
@@ -209,6 +226,8 @@ void ShowFinalGameResults(stGameResults GameResults)
 	cout << Tabs(2) << "Computer Won Times  : " << GameResults.ComputerWinTimes << endl;
 	cout << Tabs(2) << "Draw Times          : " << GameResults.DrawTimes << endl;
 	cout << Tabs(2) << "Final Winner        : " << GameResults.WinnerName << endl;
+	cout << Tabs(2) << "Player Points       : " << GameResults.PlayerPoints << endl;
+	cout << Tabs(2) << "Computer Points     : " << GameResults.ComputerPoints << endl;
 
 	cout << Tabs(2) << "______________________________________________________\n\n";
 
