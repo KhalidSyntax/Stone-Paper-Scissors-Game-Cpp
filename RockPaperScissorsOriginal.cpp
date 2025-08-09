@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -5,8 +7,11 @@
 #include <chrono>
 #include <ctime>
 #include <iomanip>
+#include <string>
 
 using namespace std;
+
+string PlayerName = "Player1";
 
 enum enGameChoice { Stone = 1, Paper = 2, Scissors = 3 };
 enum enWinner { Player1 = 1, Computer = 2, Draw = 3 };
@@ -42,7 +47,7 @@ int RandomNumber(int From, int To)
 
 string WinnerName(enWinner Winner)
 {
-	string arrWinnerName[3] = { "Player1", "Computer", "Draw" };
+	string arrWinnerName[3] = { PlayerName, "Computer", "Draw" };
 	return arrWinnerName[Winner - 1];
 }
 
@@ -109,7 +114,7 @@ void PrintRoundResults(stRoundInfo RoundInfo)
 {
 	cout << "\n________________________________Round[" << RoundInfo.RoundNumber << "]___________________\n\n";
 
-	cout << "Player1 Choice  : " << ChoiceName(RoundInfo.Player1Choice) << endl;
+	cout << PlayerName << " Choice  : " << ChoiceName(RoundInfo.Player1Choice) << endl;
 	cout << "Computer Choice : " << ChoiceName(RoundInfo.ComputerChoice) << endl;
 	cout << "Round Winner    : [" << RoundInfo.WinnerName << "]\n";
 
@@ -200,6 +205,35 @@ stGameResults PlayGame(short HowManyRounds)
 	return FillGameResults(HowManyRounds, Player1WinTimes, ComputerWinTimes, DrawTimes, RoundHistory);
 }
 
+void SaveResultsToFile(const stGameResults& game)
+{
+	ofstream file("GameResults.txt", ios::app);
+	auto now = chrono::system_clock::to_time_t(chrono::system_clock::now());
+
+	struct tm timeinfo;
+	localtime_s(&timeinfo, &now);
+
+	file << "Date         : " << put_time(&timeinfo, "%Y-%m-%d %H:%M:%S") << "\n";
+	file << "Player       : " << PlayerName << "\n";
+	file << "Rounds       : " << game.GameRound << "\n";
+	file << PlayerName << " Wins  : " << game.Player1WinTimes << "  | Player Points  : " << game.PlayerPoints << "\n";
+	file << "Computer Wins: " << game.ComputerWinTimes << " | Computer Points: " << game.ComputerPoints << "\n";
+	file << "Draws        : " << game.DrawTimes << "\n";
+	file << "Final Winner : " << game.WinnerName << "\n\n";
+	file << "Round History:\n";
+
+	for (const auto& r : game.RoundHistory)
+	{
+		file << "Round [" << r.RoundNumber << "] " <<
+			PlayerName << " (" << ChoiceName(r.Player1Choice) <<
+			") vs Computer (" << ChoiceName(r.ComputerChoice) <<
+			") -> " << r.WinnerName << "\n";
+	}
+
+	file << "----------------------------------------------------\n\n";
+	file.close();
+}
+
 string Tabs(short NumberOfTabs)
 {
 	string t = "";
@@ -222,11 +256,11 @@ void ShowFinalGameResults(stGameResults GameResults)
 	cout << Tabs(2) << "____________________[Game Results]____________________\n\n";
 
 	cout << Tabs(2) << "Game Round          : " << GameResults.GameRound << endl;
-	cout << Tabs(2) << "Player1 Won Times   : " << GameResults.Player1WinTimes << endl;
+	cout << Tabs(2) << PlayerName << " Won Times   : " << GameResults.Player1WinTimes << endl;
 	cout << Tabs(2) << "Computer Won Times  : " << GameResults.ComputerWinTimes << endl;
 	cout << Tabs(2) << "Draw Times          : " << GameResults.DrawTimes << endl;
 	cout << Tabs(2) << "Final Winner        : " << GameResults.WinnerName << endl;
-	cout << Tabs(2) << "Player Points       : " << GameResults.PlayerPoints << endl;
+	cout << Tabs(2) << PlayerName << " Points       : " << GameResults.PlayerPoints << endl;
 	cout << Tabs(2) << "Computer Points     : " << GameResults.ComputerPoints << endl;
 
 	cout << Tabs(2) << "______________________________________________________\n\n";
@@ -258,12 +292,16 @@ void StartGame()
 {
 	char PlayAgain = 'Y';
 
+	cout << "Enter Your Name:";
+	getline(cin >> ws, PlayerName);
+
 	do
 	{
 		ResetScreen();
 		stGameResults GameResults = PlayGame(ReadHowManyRounds());
 		ShowGameOverScreen();
 		ShowFinalGameResults(GameResults);
+		SaveResultsToFile(GameResults);
 
 		cout << endl << Tabs(4) << "Do you want to play Again? Y/N?";
 		cin >> PlayAgain;

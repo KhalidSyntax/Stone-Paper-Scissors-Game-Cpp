@@ -1,0 +1,57 @@
+Date         : 2025-08-09 14:53:26
+Player       : khaled
+Rounds       : 4
+Player Wins  : 1  | Player Points  : 4
+Computer Wins: 2 | Computer Points: 7
+Draws        : 1
+Final Winner : Computer
+
+Round History:
+Round [1] khaled (paper) vs Computer (Scissors) -> Computer
+Round [2] khaled (paper) vs Computer (Stone) -> Player1
+Round [3] khaled (Scissors) vs Computer (Stone) -> Computer
+Round [4] khaled (Stone) vs Computer (Stone) -> Draw
+----------------------------------------------------
+
+Date         : 2025-08-09 15:18:56
+Player       : kook
+Rounds       : 3
+Player Wins  : 1  | Player Points  : 3
+Computer Wins: 2 | Computer Points: 6
+Draws        : 0
+Final Winner : Computer
+
+Round History:
+Round [1] kook (Scissors) vs Computer (Stone) -> Computer
+Round [2] kook (paper) vs Computer (Scissors) -> Computer
+Round [3] kook (Stone) vs Computer (Scissors) -> Player1
+----------------------------------------------------
+
+Date         : 2025-08-09 15:25:29
+Player       : Sara
+Rounds       : 3
+Sara Wins  : 2  | Player Points  : 7
+Computer Wins: 0 | Computer Points: 1
+Draws        : 1
+Final Winner : Player1
+
+Round History:
+Round [1] Sara (paper) vs Computer (paper) -> Draw
+Round [2] Sara (Scissors) vs Computer (paper) -> Player1
+Round [3] Sara (paper) vs Computer (Stone) -> Player1
+----------------------------------------------------
+
+Date         : 2025-08-09 15:26:29
+Player       : Mohammed
+Rounds       : 3
+Mohammed Wins  : 1  | Player Points  : 4
+Computer Wins: 1 | Computer Points: 4
+Draws        : 1
+Final Winner : Draw
+
+Round History:
+Round [1] Mohammed (Stone) vs Computer (paper) -> Computer
+Round [2] Mohammed (paper) vs Computer (paper) -> Draw
+Round [3] Mohammed (Scissors) vs Computer (paper) -> Mohammed
+----------------------------------------------------
+
